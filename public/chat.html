@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+
+  <!-- CSS source -->
+  <!-- https://gist.github.com/andrewjmead/4783dec59ba2d1e5bcf3e1c301c5858d -->
+
+  <body class="chat">
+    <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="listUser" class="users"></div>
+    </div>
+
+    <div class="chat__main">
+      <ol id="messages" class="chat__messages"></ol>
+      <div class="chat__footer">
+        <form id="message-form">
+          <input type="text" name="message" autofocus autocomplete="off" />
+          <button type="submit">Send</button>
+          <button type="button" id="send_location">Send location</button>
+        </form>
+      </div>
+    </div>
+
+    <script id="message__template" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createAt}}</span>
+        </div>
+        <div class="message__body">
+          <p>{{text}}</p>
+        </div>
+      </li>
+    </script>
+
+    <script id="message__template__location" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createAt}}</span>
+        </div>
+        <div class="message__body">
+          <p><a target="_blank" href={{url}}>My current location</a></p>
+        </div>
+      </li>
+    </script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./js/moment.js"></script>
+    <script src="./js/mustache.js"></script>
+    <script src="./js/deparam.js"></script>
+    <script src="./js/chat.js"></script>
+  </body>
+</html>
