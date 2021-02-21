@@ -15,7 +15,10 @@ socket.on("newMessage", (message) => {
   var template = $("#message__template").html();
   var html = Mustache.render(template, {
     text: message.text,
-    from: message.from,
+    from:
+      message.from === $.deparam(window.location.search).name
+        ? `${message.from} (you)`
+        : message.from,
     createAt: moment(message.createAt).format("h:mm A"),
   });
   $("#messages").append(html);
@@ -34,7 +37,10 @@ socket.on("newNewLocationMessage", (message) => {
   var template = $("#message__template__location").html();
   var html = Mustache.render(template, {
     url: message.url,
-    from: message.from,
+    from:
+      message.from === $.deparam(window.location.search).name
+        ? `${message.from} (you)`
+        : message.from,
     createAt: moment(message.createAt).format("h:mm A"),
   });
   $("#messages").append(html);
@@ -53,10 +59,14 @@ socket.on("newNewLocationMessage", (message) => {
 });
 
 socket.on("usersInRoom", ({ usersInRoom }) => {
-  console.log(usersInRoom);
+  // console.log(usersInRoom);
   var ol = $("<ol></ol>");
   usersInRoom.forEach((u) => {
-    const user = $(`<li key=${u.id}>${u.name}</li>`);
+    const user = $(
+      `<li key=${u.id}>${u.name}${
+        u.name === $.deparam(window.location.search).name ? " (you)" : ""
+      }</li>`
+    );
     ol.append(user);
   });
   $("#listUser").html(ol);
