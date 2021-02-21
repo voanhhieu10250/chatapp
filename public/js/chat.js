@@ -74,6 +74,7 @@ socket.on("usersInRoom", ({ usersInRoom }) => {
 
 $("#message-form").on("submit", (event) => {
   event.preventDefault();
+  if (!!!$("[name=message]").val()) return;
 
   socket.emit(
     "createMessage",
